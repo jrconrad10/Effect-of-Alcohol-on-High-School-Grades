@@ -120,8 +120,39 @@ boxplot(G3 ~ romantic, data = PortugueseData, col = "lightblue", border = "black
 
 ```{r}
 boxplot(G3 ~ famsize, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
-```
 
-```{r}
+#Code for bar graphs of sex for each dataset
+sex = mathData$sex == "M"
+male = 0
+female = 0
+for(i in 1:length(sex)){
+  if (sex[i]){
+    male = male + 1
+  }
+  else{
+    female = female + 1
+  }
+}
+barplot(c(male,female), names.arg = c("Male","Female"),ylab = "Frequency",xlab = "Sex", main = "Sex in Math Dataset")
+#208 women, 187 men
+
+
+sex = portData$sex == "M"
+male = 0
+female = 0
+for(i in 1:length(sex)){
+  if (sex[i]){
+    male = male + 1
+  }
+  else{
+    female = female + 1
+  }
+}
+barplot(c(male,female), names.arg = c("Male","Female"),ylab = "Frequency",xlab = "Sex", main = "Sex in Portuguese Dataset")
+#383 women, 266 men
+
 boxplot(G3 ~ famsize, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
-```
+
+#Code for histograms of G3
+hist(mathData$G3, xlab = "Final Grade", main = "Frequency of Final Grades in Math Dataset")
+hist(portData$G3, xlab = "Final Grade", main = "Frequency of Final Grades in Portuguese Dataset")
