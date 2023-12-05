@@ -1,0 +1,128 @@
+---
+title: "FinalProject"
+output: html_document
+date: "2023-12-05"
+---
+
+```{r}
+library(readr)
+library(fixest)
+library(tidyverse)
+library(jtools)
+```
+
+```{r}
+d1=read_csv("student-mat.csv")
+d2=read_csv("student-por.csv")
+
+summary_table1 <- data.frame(
+  Mean = apply(d1[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, mean),
+  StandardDeviation = apply(d1[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, sd)
+)
+
+print(summary_table1)
+
+summary_table2 <- data.frame(
+  Mean = apply(d2[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, mean),
+  StandardDeviation = apply(d2[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, sd)
+)
+
+print(summary_table2)
+```
+
+```{r}
+qplot(x = Medu, y = G3, data = d1, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+qplot(x = Fedu, y = G3, data = d1, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+qplot(x = Medu, y = G3, data = d2, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+qplot(x = Fedu, y = G3, data = d2, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+boxplot(G3 ~ sex, data = d1, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3", xlab = "Sex", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ sex, data = d2, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3", xlab = "Sex", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ age, data = d1, col = "lightblue", border = "black", notch = FALSE, main = "Age vs G3", xlab = "Age", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ age, data = d2, col = "lightblue", border = "black", notch = FALSE, main = "Age vs G3", xlab = "Age", ylab = "G3")
+```
+
+```{r}
+qplot(x = absences, y = G3, data = d1, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+qplot(x = absences, y = G3, data = d2, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+boxplot(G3 ~ Walc, data = d1, col = "lightblue", border = "black", notch = FALSE, main = "Walc vs G3", xlab = "Walc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ Walc, data = d2, col = "lightblue", border = "black", notch = FALSE, main = "Walc vs G3", xlab = "Walc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ Dalc, data = d1, col = "lightblue", border = "black", notch = FALSE, main = "Dalc vs G3", xlab = "Dalc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ Dalc, data = d2, col = "lightblue", border = "black", notch = FALSE, main = "Dalc vs G3", xlab = "Dalc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ goout, data = d1, col = "lightblue", border = "black", notch = FALSE, main = "Goout vs G3", xlab = "Goout", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ goout, data = d2, col = "lightblue", border = "black", notch = FALSE, main = "Goout vs G3", xlab = "Goout", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ reason, data = d1, col = "lightblue", border = "black", notch = FALSE, main = "Reason vs G3", xlab = "Reason", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ reason, data = d2, col = "lightblue", border = "black", notch = FALSE, main = "Reason vs G3", xlab = "Reason", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ romantic, data = d1, col = "lightblue", border = "black", notch = FALSE, main = "Romantic vs G3", xlab = "Romantic", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ romantic, data = d2, col = "lightblue", border = "black", notch = FALSE, main = "Romantic vs G3", xlab = "Romantic", ylab = "G3")
+```
+
+
+```{r}
+boxplot(G3 ~ famsize, data = d1, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ famsize, data = d2, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
+```
+
+
