@@ -1,0 +1,127 @@
+---
+title: "FinalProject"
+output: html_document
+date: "2023-12-05"
+---
+
+```{r}
+library(readr)
+library(fixest)
+library(tidyverse)
+library(jtools)
+```
+
+```{r}
+source("GetData.R")
+```
+
+```{r}
+MathStats <- data.frame(
+  Mean = apply(MathData[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, mean),
+  StandardDeviation = apply(MathData[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, sd)
+)
+
+print(MathStats)
+
+PortugueseStats <- data.frame(
+  Mean = apply(PortugueseData[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, mean),
+  StandardDeviation = apply(PortugueseData[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, sd)
+)
+
+print(PortugueseStats)
+```
+
+```{r}
+qplot(x = Medu, y = G3, data = MathData, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+qplot(x = Fedu, y = G3, data = MathData, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+qplot(x = Medu, y = G3, data = PortugueseData, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+qplot(x = Fedu, y = G3, data = PortugueseData, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+boxplot(G3 ~ sex, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3", xlab = "Sex", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ sex, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3", xlab = "Sex", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ age, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Age vs G3", xlab = "Age", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ age, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Age vs G3", xlab = "Age", ylab = "G3")
+```
+
+```{r}
+qplot(x = absences, y = G3, data = MathData, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+qplot(x = absences, y = G3, data = PortugueseData, geom = "jitter") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+boxplot(G3 ~ Walc, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Walc vs G3", xlab = "Walc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ Walc, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Walc vs G3", xlab = "Walc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ Dalc, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Dalc vs G3", xlab = "Dalc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ Dalc, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Dalc vs G3", xlab = "Dalc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ goout, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Goout vs G3", xlab = "Goout", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ goout, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Goout vs G3", xlab = "Goout", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ reason, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Reason vs G3", xlab = "Reason", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ reason, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Reason vs G3", xlab = "Reason", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ romantic, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Romantic vs G3", xlab = "Romantic", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ romantic, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Romantic vs G3", xlab = "Romantic", ylab = "G3")
+```
+
+
+```{r}
+boxplot(G3 ~ famsize, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ famsize, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
+```

@@ -1,0 +1,57 @@
+---
+title: "Regressions"
+output: html_document
+date: "2023-12-05"
+---
+
+```{r}
+library(readr)
+library(fixest)
+library(tidyverse)
+library(jtools)
+```
+
+```{r}
+source("GetData.R")
+```
+
+```{r}
+#Regressions that give a sense of the data 
+
+mDalcOnSex = feols(Dalc~sex,MathData) 
+
+pDalcOnSex = feols(Dalc~sex,PortugueseData)
+
+summary(mDalcOnSex)
+summary(pDalcOnSex)
+```
+
+```{r}
+mWalcOnSex = feols(Walc~sex,MathData) 
+
+pWalcOnSex = feols(Walc~sex,PortugueseData) 
+
+summary(mWalcOnSex)
+summary(pWalcOnSex)
+```
+
+```{r}
+etable(mDalcOnSex,pDalcOnSex,mWalcOnSex,pWalcOnSex) 
+```
+
+ 
+```{r}
+feols(G3~factor(Dalc)+age+goout+romantic,MathData) 
+```
+
+```{r}
+feols(G3~Dalc+age+goout+romantic,PortugueseData) 
+```
+
+```{r}
+feols(G3~Dalc+I(Dalc^2)+age+goout+romantic,MathData)
+```
+
+```{r}
+feols(G3~Dalc+I(Dalc^2)+age+goout+romantic,PortugueseData) 
+```
