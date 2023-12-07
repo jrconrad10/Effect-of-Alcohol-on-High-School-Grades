@@ -55,3 +55,12 @@ feols(G3~Dalc+I(Dalc^2)+age+goout+romantic,MathData)
 ```{r}
 feols(G3~Dalc+I(Dalc^2)+age+goout+romantic,PortugueseData) 
 ```
+
+```{r}
+feols(G3 ~ lowDalc + lowWalc + goout + romantic + age + famrel, data = MathData)
+```
+
+```{r}
+feols(G3 ~ lowDalc + lowWalc + goout + romantic + age + famrel, data = PortugueseData)
+```
+

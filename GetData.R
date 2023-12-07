@@ -13,8 +13,24 @@ MathData <- function() {
                           nursery = nursery == "yes",
                           higher = higher == "yes",
                           internet = internet == "yes",
-                          romantic = romantic == "yes")
+                          romantic = romantic == "yes",
+                          Pstatus = Pstatus == "T",
+                          lowDalc = Dalc == 1,
+                          lowWalc = Walc == 1)
   
+  # Modify alcohol consumption categories
+  Math <- Math %>% mutate(newDalc = case_when(
+    Dalc %in% c(1) ~ 0,
+    Dalc %in% c(2) ~ 1,
+    Dalc %in% c(3,4,5) ~ 2
+  ))
+
+  # Modify alcohol consumption categories
+  Math <- Math %>% mutate(newWalc = case_when(
+    Walc %in% c(1) ~ 0,
+    Walc %in% c(2) ~ 1,
+    Walc %in% c(3,4,5) ~ 2
+  ))
   
   # Convert to out of 100
   Math <- Math %>% mutate(G3 = G3 * 5)
@@ -32,10 +48,27 @@ PortugueseData <- function() {
                                       nursery = nursery == "yes",
                                       higher = higher == "yes",
                                       internet = internet == "yes",
-                                      romantic = romantic == "yes")
+                                      romantic = romantic == "yes",
+                                      Pstatus = Pstatus == "T",
+                                      lowDalc = Dalc == 1,
+                                      lowWalc = Walc == 1)
   
   # Convert to out of 100
   Portuguese <- Portuguese %>% mutate(G3 = G3 * 5)
+  
+  # Modify alcohol consumption categories
+  Portuguese <- Portuguese %>% mutate(newDalc = case_when(
+    Dalc %in% c(1) ~ 0,
+    Dalc %in% c(2) ~ 1,
+    Dalc %in% c(3,4,5) ~ 2
+  ))
+  
+  # Modify alcohol consumption categories
+  Portuguese <- Portuguese %>% mutate(newWalc = case_when(
+    Walc %in% c(1) ~ 0,
+    Walc %in% c(2) ~ 1,
+    Walc %in% c(3,4,5) ~ 2
+  ))
   
   return(Portuguese)
 }
