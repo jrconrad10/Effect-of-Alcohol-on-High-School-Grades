@@ -40,27 +40,58 @@ etable(mDalcOnSex,pDalcOnSex,mWalcOnSex,pWalcOnSex)
 ```
 
  
+ 
+#Main Regressions
 ```{r}
-feols(G3~factor(Dalc)+age+goout+romantic,MathData) 
+#Basic regression - treats variables as continuous with no controls
+feols(G3~Dalc+Walc,MathData)
+feols(G3~Dalc+Walc,PortugueseData)
+#We see coefficients we'd expect, but high p values in MathData
+```
+
+
+
+```{r}
+#Now adding controls in
+feols(G3~Dalc+Walc+age+goout+romantic+famrel,MathData)
+feols(G3~Dalc+Walc+age+goout+romantic+famrel,PortugueseData)
+#Changes are all over the place, but mostly we see a smaller coefficient on alcohol. Walc does become positive in Math. P values are up and down.
+```
+
+
+```{r}
+#Regressions with factor. Trying to show how messy it is, give Jesse a sense of how we progressed to doing the binary regression
+feols(G3 ~ factor(Dalc) + factor(Walc) + goout + romantic + age + famrel, data = MathData)
+feols(G3 ~ factor(Dalc) + factor(Walc) + goout + romantic + age + famrel, data = PortugueseData)
+```
+
+
+
+```{r}
+#Binary, no controls
+feols(G3 ~ highDalc + highWalc, data = MathData)
+feols(G3 ~ highDalc + highWalc, data = PortugueseData)
+```
+
+
+```{r}
+#Using the binary variables highWalc and highDalc. OUR MAIN REGRESSION/FINAL MODEL
+feols(G3 ~ highDalc + highWalc + goout + romantic + age + famrel, data = MathData)
+feols(G3 ~ highDalc + highWalc + goout + romantic + age + famrel, data = PortugueseData)
 ```
 
 ```{r}
-feols(G3~Dalc+age+goout+romantic,PortugueseData) 
+#Interacting romantic and sex
+feols(G3 ~ highDalc + highWalc + goout + romantic:sex + age + famrel, data = MathData)
+feols(G3 ~ highDalc + highWalc + goout + romantic:sex + age + famrel, data = PortugueseData)
 ```
 
-```{r}
-feols(G3~Dalc+I(Dalc^2)+age+goout+romantic,MathData)
-```
+
 
 ```{r}
-feols(G3~Dalc+I(Dalc^2)+age+goout+romantic,PortugueseData) 
+#Attempting to square alcohol variables. More for fun than anything - the p values are terrible - to see if we can find optimal alcohol consumption
+feols(G3~Dalc+I(Dalc^2)+Walc+I(Walc^2)+age+goout+romantic,MathData)
+feols(G3~Dalc+I(Dalc^2)+Walc+I(Walc^2)+age+goout+romantic,PortugueseData) 
 ```
 
-```{r}
-feols(G3 ~ lowDalc + lowWalc + goout + romantic + age + famrel, data = MathData)
-```
-
-```{r}
-feols(G3 ~ lowDalc + lowWalc + goout + romantic + age + famrel, data = PortugueseData)
-```
 
