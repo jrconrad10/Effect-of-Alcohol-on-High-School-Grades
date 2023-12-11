@@ -9,27 +9,43 @@ library(readr)
 library(fixest)
 library(tidyverse)
 library(jtools)
+library(vtable)
 ```
 
 ```{r}
 source("GetData.R")
 ```
+```{r}
+#Using v table to get info about relevant variables
+vtable(MathData)
+```
+
+
+
 
 ```{r}
 MathStats <- data.frame(
-  Mean = apply(MathData[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, mean),
-  StandardDeviation = apply(MathData[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, sd)
+  Mean = apply(MathData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, mean),
+  StandardDeviation = apply(MathData[, c("age", "studytime","romantic","famrel", "goout", "Dalc", "Walc", "G3")], 2, sd),
+  Min = apply(MathData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, min),
+  Max = apply(MathData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, max)
 )
 
 print(MathStats)
 
+
+```
+```{r}
 PortugueseStats <- data.frame(
-  Mean = apply(PortugueseData[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, mean),
-  StandardDeviation = apply(PortugueseData[, c("age", "studytime", "traveltime", "freetime", "famrel", "goout", "failures", "Medu", "Fedu", "health", "absences", "Dalc", "Walc", "G3")], 2, sd)
+  Mean = apply(PortugueseData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, mean),
+  StandardDeviation = apply(PortugueseData[, c("age", "studytime","romantic","famrel", "goout", "Dalc", "Walc", "G3")], 2, sd),
+  Min = apply(PortugueseData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, min),
+  Max = apply(PortugueseData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, max)
 )
 
 print(PortugueseStats)
 ```
+
 
 ```{r}
 qplot(x = Medu, y = G3, data = MathData, geom = "jitter") +

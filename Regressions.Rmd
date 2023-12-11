@@ -56,8 +56,8 @@ etable(continuousMath,continuousPortuguese)
 
 ```{r}
 #Now adding controls in
-basicMathControlled = feols(G3~Dalc+Walc+age+goout+romantic+famrel,MathData)
-basicPortugueseControlled = feols(G3~Dalc+Walc+age+goout+romantic+famrel,PortugueseData)
+basicMathControlled = feols(G3~Dalc+Walc+age+goout+romantic+famrel+ studytime,MathData)
+basicPortugueseControlled = feols(G3~Dalc+Walc+age+goout+romantic+famrel+ studytime,PortugueseData)
 etable(basicMathControlled,basicPortugueseControlled)
 #Changes are all over the place, but mostly we see a smaller coefficient on alcohol. Walc does become positive in Math. P values are up and down.
 ```
@@ -65,9 +65,10 @@ etable(basicMathControlled,basicPortugueseControlled)
 
 ```{r}
 #Regressions with factor. Trying to show how messy it is, give Jesse a sense of how we progressed to doing the binary regression
-factoredMath = feols(G3 ~ factor(Dalc) + factor(Walc) + goout + romantic + age + famrel, data = MathData)
-factoredPortuguese = feols(G3 ~ factor(Dalc) + factor(Walc) + goout + romantic + age + famrel, data = PortugueseData)
+factoredMath = feols(G3 ~ factor(Dalc) + factor(Walc) + goout + romantic + age + famrel+ studytime, data = MathData)
+factoredPortuguese = feols(G3 ~ factor(Dalc) + factor(Walc) + goout + romantic + age + famrel+ studytime, data = PortugueseData)
 etable(factoredMath,factoredPortuguese)
+
 ```
 
 
@@ -82,15 +83,16 @@ etable(binaryMath,binaryPortuguese)
 
 ```{r}
 #Using the binary variables highWalc and highDalc. OUR MAIN REGRESSION/FINAL MODEL
-binaryControlledMath = feols(G3 ~ highDalc + highWalc + goout + romantic + age + famrel, data = MathData)
-binaryControlledPortuguese = feols(G3 ~ highDalc + highWalc + goout + romantic + age + famrel, data = PortugueseData)
+binaryControlledMath = feols(G3 ~ highDalc + highWalc + goout + romantic + age + famrel + studytime, data = MathData)
+binaryControlledPortuguese = feols(G3 ~ highDalc + highWalc + goout + romantic + age + famrel + studytime, data = PortugueseData)
 etable(binaryControlledMath,binaryControlledPortuguese)
+
 ```
 
 ```{r}
 #Interacting romantic and sex
-sexMath = feols(G3 ~ highDalc + highWalc + goout + romantic*sex + age + famrel, data = MathData)
-sexPortuguese = feols(G3 ~ highDalc + highWalc + goout + romantic*sex + age + famrel, data = PortugueseData)
+sexMath = feols(G3 ~ highDalc + highWalc + goout + romantic*sex + age + famrel+studytime, data = MathData)
+sexPortuguese = feols(G3 ~ highDalc + highWalc + goout + romantic*sex + age + famrel+studytime, data = PortugueseData)
 etable(sexMath,sexPortuguese)
 ```
 
@@ -98,8 +100,8 @@ etable(sexMath,sexPortuguese)
 
 ```{r}
 #Attempting to square alcohol variables. More for fun than anything - the p values are terrible - to see if we can find optimal alcohol consumption
-quadMath = feols(G3~Dalc+I(Dalc^2)+Walc+I(Walc^2)+age+goout+romantic,MathData)
-quadPortuguese = feols(G3~Dalc+I(Dalc^2)+Walc+I(Walc^2)+age+goout+romantic,PortugueseData) 
+quadMath = feols(G3~Dalc+I(Dalc^2)+Walc+I(Walc^2)+age+goout+romantic+studytime,MathData)
+quadPortuguese = feols(G3~Dalc+I(Dalc^2)+Walc+I(Walc^2)+age+goout+romantic+studytime,PortugueseData) 
 etable(quadMath,quadPortuguese)
 ```
 
