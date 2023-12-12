@@ -68,11 +68,11 @@ qplot(x = Fedu, y = G3, data = PortugueseData, geom = "jitter") +
 ```
 
 ```{r}
-boxplot(G3 ~ sex, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3", xlab = "Sex", ylab = "G3")
+boxplot(G3 ~ sex, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3 in Math Dataset", xlab = "Sex", ylab = "G3")
 ```
 
 ```{r}
-boxplot(G3 ~ sex, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3", xlab = "Sex", ylab = "G3")
+boxplot(G3 ~ sex, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3 in Portuguese Dataset", xlab = "Sex", ylab = "G3")
 ```
 
 ```{r}
@@ -110,6 +110,22 @@ boxplot(G3 ~ Dalc, data = PortugueseData, col = "lightblue", border = "black", n
 ```
 
 ```{r}
+boxplot(G3 ~ highDalc, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "High Dalc vs G3 in the Math Dataset", xlab = "High Dalc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ highDalc, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "High Dalc vs G3 in the Portuguese Dataset", xlab = "High Dalc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ highWalc, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "High Walc vs G3 in the Math Dataset", xlab = "High Walc", ylab = "G3")
+```
+
+```{r}
+boxplot(G3 ~ highWalc, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "High Walc vs G3 in the Portuguese Dataset", xlab = "High Walc", ylab = "G3")
+```
+
+```{r}
 boxplot(G3 ~ goout, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Goout vs G3", xlab = "Goout", ylab = "G3")
 ```
 
@@ -136,7 +152,13 @@ boxplot(G3 ~ romantic, data = PortugueseData, col = "lightblue", border = "black
 
 ```{r}
 boxplot(G3 ~ famsize, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
+```
 
+```{r}
+boxplot(G3 ~ famsize, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
+```
+
+```{r}
 #Code for bar graphs of sex for each dataset
 sex = MathData$sex == "M"
 male = 0
@@ -152,7 +174,6 @@ for(i in 1:length(sex)){
 barplot(c(male,female), names.arg = c("Male","Female"),ylab = "Frequency",xlab = "Sex", main = "Sex in Math Dataset")
 #208 women, 187 men
 
-
 sex = PortugueseData$sex == "M"
 male = 0
 female = 0
@@ -166,9 +187,10 @@ for(i in 1:length(sex)){
 }
 barplot(c(male,female), names.arg = c("Male","Female"),ylab = "Frequency",xlab = "Sex", main = "Sex in Portuguese Dataset")
 #383 women, 266 men
+```
 
-boxplot(G3 ~ famsize, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Famsize vs G3", xlab = "Famsize", ylab = "G3")
-
+```{r}
 #Code for histograms of G3
 hist(MathData$G3, xlab = "Final Grade", main = "Frequency of Final Grades in Math Dataset")
 hist(PortugueseData$G3, xlab = "Final Grade", main = "Frequency of Final Grades in Portuguese Dataset")
+```
