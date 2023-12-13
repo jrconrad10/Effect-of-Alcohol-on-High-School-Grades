@@ -1,0 +1,251 @@
+---
+title: "EC365 - Final Project Code"
+output: html_document
+date: "2023-12-13"
+---
+
+```{r}
+library(readr)
+library(fixest)
+library(tidyverse)
+library(jtools)
+library(vtable)
+```
+
+```{r}
+source("GetData.R")
+```
+
+## Visualizations
+
+```{r}
+dalc = MathData$Dalc 
+
+d1 = 0 
+d2 = 0 
+d3 = 0 
+d4 = 0 
+d5 = 0 
+
+for(i in 1:length(dalc)){ 
+  if (dalc[i] == 1){ 
+    d1 = d1 + 1 
+  } 
+  else if (dalc[i] == 2){ 
+    d2 = d2 + 1 
+  } 
+  else if (dalc[i] == 3){ 
+    w3 = w3 + 1 
+  } 
+  else if (dalc[i] == 4){ 
+    d4 = d4 + 1 
+  } 
+  else if (dalc[i] == 5){ 
+    d5 = d5 + 1 
+  } 
+} 
+
+barplot(c(d1,d2,d3,d4,d5), names.arg = c("1","2","3","4","5"),ylab = "Frequency",xlab = "Weekday Alcohol Consumption", main = "Weekday Alcohol Consumption in Math Dataset") 
+
+dalc = PortugueseData$Dalc 
+
+d1 = 0 
+d2 = 0 
+d3 = 0 
+d4 = 0 
+d5 = 0 
+
+for(i in 1:length(dalc)){ 
+  if (dalc[i] == 1){ 
+    d1 = d1 + 1 
+  } 
+  else if (dalc[i] == 2){ 
+    d2 = d2 + 1 
+  } 
+  else if (dalc[i] == 3){ 
+    d3 = d3 + 1 
+  } 
+  else if (dalc[i] == 4){ 
+    d4 = d4 + 1 
+  } 
+  else if (dalc[i] == 5){ 
+    d5 = d5 + 1 
+  } 
+} 
+
+barplot(c(d1,d2,d3,d4,d5), names.arg = c("1","2","3","4","5"),ylab = "Frequency",xlab = "Weekday Alcohol Consumption", main = "Weekday Alcohol Consumption in Portuguese Dataset") 
+```
+
+```{r}
+boxplot(G3 ~ highDalc, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "High Dalc vs G3 in the Math Dataset", xlab = "High Dalc", ylab = "G3")
+
+boxplot(G3 ~ highDalc, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "High Dalc vs G3 in the Portuguese Dataset", xlab = "High Dalc", ylab = "G3")
+```
+
+```{r}
+walc = MathData$Walc 
+
+w1 = 0 
+w2 = 0 
+w3 = 0 
+w4 = 0 
+w5 = 0 
+
+for(i in 1:length(walc)){ 
+  if (walc[i] == 1){ 
+    w1 = w1 + 1 
+  } 
+  else if (walc[i] == 2){ 
+    w2 = w2 + 1 
+  } 
+  else if (walc[i] == 3){ 
+    w3 = w3 + 1 
+  } 
+  else if (walc[i] == 4){ 
+    w4 = w4 + 1 
+  } 
+  else if (walc[i] == 5){ 
+    w5 = w5 + 1 
+  } 
+} 
+
+barplot(c(w1,w2,w3,w4,w5), names.arg = c("1","2","3","4","5"),ylab = "Frequency",xlab = "Weekend Alcohol Consumption", main = "Weekend Alcohol Consumption in Math Dataset") 
+
+walc = PortugueseData$Walc 
+
+w1 = 0 
+w2 = 0 
+w3 = 0 
+w4 = 0 
+w5 = 0 
+
+for(i in 1:length(walc)){ 
+  if (walc[i] == 1){ 
+    w1 = w1 + 1 
+  } 
+  else if (walc[i] == 2){ 
+    w2 = w2 + 1 
+  } 
+  else if (walc[i] == 3){ 
+    w3 = w3 + 1 
+  } 
+  else if (walc[i] == 4){ 
+    w4 = w4 + 1 
+  } 
+  else if (walc[i] == 5){ 
+    w5 = w5 + 1 
+  } 
+} 
+
+barplot(c(w1,w2,w3,w4,w5), names.arg = c("1","2","3","4","5"),ylab = "Frequency",xlab = "Weekend Alcohol Consumption", main = "Weekend Alcohol Consumption in Portuguese Dataset") 
+```
+
+```{r}
+boxplot(G3 ~ highWalc, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "High Walc vs G3 in the Math Dataset", xlab = "High Walc", ylab = "G3")
+
+boxplot(G3 ~ highWalc, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "High Walc vs G3 in the Portuguese Dataset", xlab = "High Walc", ylab = "G3")
+```
+
+```{r}
+hist(MathData$G3, xlab = "Final Grade", main = "Frequency of Final Grades in Math Dataset")
+
+hist(PortugueseData$G3, xlab = "Final Grade", main = "Frequency of Final Grades in Portuguese Dataset")
+```
+
+```{r}
+MathStats <- data.frame(
+  Mean = apply(MathData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, mean),
+  StandardDeviation = apply(MathData[, c("age", "studytime","romantic","famrel", "goout", "Dalc", "Walc", "G3")], 2, sd),
+  Min = apply(MathData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, min),
+  Max = apply(MathData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, max)
+)
+
+print(MathStats)
+```
+
+```{r}
+PortugueseStats <- data.frame(
+  Mean = apply(PortugueseData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, mean),
+  StandardDeviation = apply(PortugueseData[, c("age", "studytime","romantic","famrel", "goout", "Dalc", "Walc", "G3")], 2, sd),
+  Min = apply(PortugueseData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, min),
+  Max = apply(PortugueseData[, c("age", "studytime","romantic", "famrel", "goout", "Dalc", "Walc", "G3")], 2, max)
+)
+
+print(PortugueseStats)
+```
+
+```{r}
+boxplot(G3 ~ sex, data = MathData, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3 in Math Dataset", xlab = "Sex", ylab = "G3")
+
+boxplot(G3 ~ sex, data = PortugueseData, col = "lightblue", border = "black", notch = FALSE, main = "Sex vs G3 in Portuguese Dataset", xlab = "Sex", ylab = "G3")
+```
+
+## Regressions
+
+```{r}
+mDalcOnSex = feols(Dalc~sex,MathData) 
+
+pDalcOnSex = feols(Dalc~sex,PortugueseData)
+
+mWalcOnSex = feols(Walc~sex,MathData) 
+
+pWalcOnSex = feols(Walc~sex,PortugueseData)
+
+etable(mDalcOnSex,pDalcOnSex,mWalcOnSex,pWalcOnSex)
+```
+
+```{r}
+continuousMath = feols(G3~Dalc+Walc,MathData)
+
+continuousPortuguese = feols(G3~Dalc+Walc,PortugueseData)
+
+etable(continuousMath,continuousPortuguese)
+```
+
+```{r}
+basicMathControlled = feols(G3~Dalc+Walc+age+goout+romantic+famrel+ studytime,MathData)
+
+basicPortugueseControlled = feols(G3~Dalc+Walc+age+goout+romantic+famrel+ studytime,PortugueseData)
+
+etable(basicMathControlled,basicPortugueseControlled)
+```
+
+```{r}
+factoredMath = feols(G3 ~ factor(Dalc) + factor(Walc) + goout + romantic + age + famrel+ studytime, data = MathData)
+
+factoredPortuguese = feols(G3 ~ factor(Dalc) + factor(Walc) + goout + romantic + age + famrel+ studytime, data = PortugueseData)
+
+etable(factoredMath,factoredPortuguese)
+```
+
+```{r}
+binaryMath = feols(G3 ~ highDalc + highWalc, data = MathData)
+
+binaryPortuguese = feols(G3 ~ highDalc + highWalc, data = PortugueseData)
+
+etable(binaryMath,binaryPortuguese)
+```
+
+```{r}
+binaryControlledMath = feols(G3 ~ highDalc + highWalc + goout + romantic + age + famrel + studytime, data = MathData)
+
+binaryControlledPortuguese = feols(G3 ~ highDalc + highWalc + goout + romantic + age + famrel + studytime, data = PortugueseData)
+
+etable(binaryControlledMath,binaryControlledPortuguese)
+```
+
+```{r}
+sexMath = feols(G3 ~ highDalc + highWalc + goout + romantic*sex + age + famrel+studytime, data = MathData)
+
+sexPortuguese = feols(G3 ~ highDalc + highWalc + goout + romantic*sex + age + famrel+studytime, data = PortugueseData)
+
+etable(sexMath,sexPortuguese)
+```
+
+```{r}
+quadMath = feols(G3~Dalc+I(Dalc^2)+Walc+I(Walc^2)+age+goout+romantic+studytime,MathData)
+
+quadPortuguese = feols(G3~Dalc+I(Dalc^2)+Walc+I(Walc^2)+age+goout+romantic+studytime,PortugueseData) 
+
+etable(quadMath,quadPortuguese)
+```
