@@ -15,8 +15,8 @@ MathData <- function() {
                           internet = internet == "yes",
                           romantic = romantic == "yes",
                           Pstatus = Pstatus == "T",
-                          lowDalc = Dalc == 1,
-                          lowWalc = Walc == 1)
+                          highDalc = Dalc != 1,
+                          highWalc = Walc != 1)
   
   # Convert to out of 100
   Math <- Math %>% mutate(G3 = G3 * 5)
@@ -36,8 +36,8 @@ PortugueseData <- function() {
                                       internet = internet == "yes",
                                       romantic = romantic == "yes",
                                       Pstatus = Pstatus == "T",
-                                      lowDalc = Dalc == 1,
-                                      lowWalc = Walc == 1)
+                                      highDalc = Dalc != 1,
+                                      highWalc = Walc != 1)
   
   # Convert to out of 100
   Portuguese <- Portuguese %>% mutate(G3 = G3 * 5)
